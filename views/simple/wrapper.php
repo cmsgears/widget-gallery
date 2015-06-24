@@ -1,5 +1,5 @@
 <div class='gallery'>
-	<h2><?=$gallery->name?></h2>
+	<h2><?=$gallery->title?></h2>
 	<p><?=$gallery->description?></p>
 </div>
 
