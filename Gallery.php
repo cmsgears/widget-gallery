@@ -4,6 +4,7 @@ namespace cmsgears\widgets\gallery;
 use \Yii;
 use yii\base\Widget;
 use yii\base\InvalidConfigException;
+use yii\helpers\Html;
 
 use cmsgears\core\common\services\GalleryService;
 
@@ -97,7 +98,7 @@ class Gallery extends Widget {
 		}
 
 		$itemsHtml		= implode( "\n", $items );
-		$galleryHtml	= $this->render( $wrapperPath, [ 'itemsHtml' => $itemsHtml ] );
+		$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
 
         return Html::tag( 'div', $galleryHtml, $this->options );
     }

@@ -1,4 +1,4 @@
-<div class='gallery'>
+<div class='header'>
 	<h2><?=$gallery->name?></h2>
 	<p><?=$gallery->description?></p>
 </div>
