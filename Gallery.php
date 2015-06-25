@@ -74,8 +74,9 @@ class Gallery extends Widget {
             throw new InvalidConfigException( "Gallery name is required." );
         }
 
-		$gallery	= GalleryService::findByName( $this->galleryName );
-		$items 		= [];
+		$gallery		= GalleryService::findByName( $this->galleryName );
+		$items 			= [];
+		$galleryHtml	= '';
 
 		// Paths
 		$wrapperPath	= $this->view . "/wrapper";
@@ -91,14 +92,14 @@ class Gallery extends Widget {
 	
 	            $items[] = $this->render( $itemPath, [ 'item' => $item ] );
 	        }
+
+			$itemsHtml		= implode( "\n", $items );
+			$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
 		}
 		else {
 
-			echo "<p>Gallery does not exist. Please create it via admin having name set to $this->galleryName.</p>";
+			$galleryHtml	= "<p>Gallery does not exist. Please create it via admin having name set to $this->galleryName.</p>";
 		}
-
-		$itemsHtml		= implode( "\n", $items );
-		$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
 
         return Html::tag( 'div', $galleryHtml, $this->options );
     }
