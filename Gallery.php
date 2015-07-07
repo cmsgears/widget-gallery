@@ -10,7 +10,7 @@ use cmsgears\core\common\services\GalleryService;
 
 // TODO: Add a bootstrap view apart from cmgtools
 
-class Gallery extends \cmsgears\core\widgets\BaseWidget {
+class Gallery extends \cmsgears\core\common\widgets\BaseWidget {
 
 	// Variables ---------------------------------------------------
 
