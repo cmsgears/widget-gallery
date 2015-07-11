@@ -1,11 +1,10 @@
 <?php
-$image			= $item->file;
-$imageUrl		= $image->getFileUrl();
-$imageAlt		= $image->altText;
+$imageUrl		= $item->getFileUrl();
+$imageAlt		= $item->altText;
 
-$itemTitle		= $image->title;
-$itemDesc		= $image->description;
-$itemLink		= $image->link;
+$itemTitle		= $item->title;
+$itemDesc		= $item->description;
+$itemLink		= $item->link;
 ?>
 <li>
 	<div class='flip-container' ontouchstart="this.classList.toggle('hover');">
