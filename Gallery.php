@@ -52,7 +52,7 @@ class Gallery extends \cmsgears\core\common\base\Widget {
 
         if( !isset( $gallery ) ) {
 
-            throw new InvalidConfigException( 'Gallery does not exist. Please create it via admin having name set to $this->galleryName.' );
+            throw new InvalidConfigException( "Gallery does not exist. Please create it via admin having name set to $this->galleryName." );
         }
 
 		// Paths
