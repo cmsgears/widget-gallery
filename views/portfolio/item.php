@@ -8,12 +8,12 @@ $itemLink		= $item->link;
 ?>
 <li>
 	<div class="colf3">
-		<div class='flip-container' ontouchstart="this.classList.toggle('hover');">
-			<div class='flipper'>
-	    		<div class='front face'>
+		<div class='flipper' ontouchstart="this.classList.toggle('hover');">
+			<div class='flipper-content'>
+	    		<div class='flipper-face flipper-front'>
 					<img src='<?=$imageUrl?>' class='fluid' alt='<?=$imageAlt?>' />
 	    		</div>
-	    		<div class='back face center'>
+	    		<div class='flipper-face flipper-back center'>
 					<h6 class='title'><?=$itemTitle?></h6>
 					<span class='info'><?=$itemDesc?></span>
 					<?php if( isset( $itemLink ) ) { ?>
