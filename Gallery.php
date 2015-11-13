@@ -56,8 +56,8 @@ class Gallery extends \cmsgears\core\common\base\Widget {
         }
 
 		// Paths
-		$wrapperPath	= $this->viewFile . "/wrapper";
-		$itemPath		= $this->viewFile . "/item";
+		$wrapperPath	= $this->template . "/wrapper";
+		$itemPath		= $this->template . "/item";
 
 		// Generate Items Html
 
