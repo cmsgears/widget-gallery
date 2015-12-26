@@ -3,7 +3,6 @@ namespace cmsgears\widgets\gallery;
 
 use \Yii;
 use yii\base\Widget;
-use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 
 use cmsgears\core\common\services\GalleryService;
@@ -50,28 +49,26 @@ class Gallery extends \cmsgears\core\common\base\Widget {
 		$items 			= [];
 		$galleryHtml	= '';
 
-        if( !isset( $gallery ) ) {
+        if( isset( $gallery ) && $gallery->active ) {
 
-            throw new InvalidConfigException( "Gallery does not exist. Please create it via admin having name set to $this->galleryName." );
-        }
-
-		// Paths
-		$wrapperPath	= $this->viewFile . "/wrapper";
-		$itemPath		= $this->viewFile . "/item";
-
-		// Generate Items Html
-
-		$gitems = $gallery->files;
-
-        foreach( $gitems as $item ) {
-
-            $items[] = $this->render( $itemPath, [ 'item' => $item ] );
-        }
-
-		$itemsHtml		= implode( "\n", $items );
-		$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
-
-        return Html::tag( 'div', $galleryHtml, $this->options );
+			// Paths
+			$wrapperPath	= $this->template . "/wrapper";
+			$itemPath		= $this->template . "/item";
+	
+			// Generate Items Html
+	
+			$gitems = $gallery->files;
+	
+	        foreach( $gitems as $item ) {
+	
+	            $items[] = $this->render( $itemPath, [ 'item' => $item ] );
+	        }
+	
+			$itemsHtml		= implode( "\n", $items );
+			$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
+	
+	        return Html::tag( 'div', $galleryHtml, $this->options );
+		}
     }
 }
 
