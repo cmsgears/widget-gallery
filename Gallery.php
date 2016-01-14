@@ -46,30 +46,40 @@ class Gallery extends \cmsgears\core\common\base\Widget {
         }
 
 		$gallery		= GalleryService::findByName( $this->galleryName );
-		$items 			= [];
-		$galleryHtml	= '';
 
         if( isset( $gallery ) && $gallery->active ) {
 
-			// Paths
-			$wrapperPath	= $this->template . "/wrapper";
-			$itemPath		= $this->template . "/item";
-	
-			// Generate Items Html
-	
-			$gitems = $gallery->files;
-	
-	        foreach( $gitems as $item ) {
-	
-	            $items[] = $this->render( $itemPath, [ 'item' => $item ] );
-	        }
-	
-			$itemsHtml		= implode( "\n", $items );
-			$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
+			$galleryHtml	= $this->renderWidget( [ 'gallery' => $gallery ] );
 	
 	        return Html::tag( 'div', $galleryHtml, $this->options );
 		}
     }
+
+	public function renderWidget( $config = [] ) {
+
+		$gallery		= $config[ 'gallery' ];
+		$items 			= [];
+		$galleryHtml	= '';
+
+		// Paths
+		$wrapperPath	= $this->template . "/wrapper";
+		$itemPath		= $this->template . "/item";
+
+		// Generate Items Html
+
+		$gitems = $gallery->files;
+
+	    foreach( $gitems as $item ) {
+
+	        $items[] = $this->render( $itemPath, [ 'item' => $item ] );
+	    }
+
+		$itemsHtml		= implode( "\n", $items );
+
+		$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
+
+		return $galleryHtml;
+	}
 }
 
 ?>
