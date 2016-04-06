@@ -5,7 +5,7 @@ use \Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
-use cmsgears\core\common\services\GalleryService;
+use cmsgears\core\common\services\resources\GalleryService;
 
 // TODO: Add a bootstrap view apart from cmgtools
 
@@ -50,7 +50,7 @@ class Gallery extends \cmsgears\core\common\base\Widget {
         if( isset( $gallery ) && $gallery->active ) {
 
 			$galleryHtml	= $this->renderWidget( [ 'gallery' => $gallery ] );
-	
+
 	        return Html::tag( 'div', $galleryHtml, $this->options );
 		}
     }
