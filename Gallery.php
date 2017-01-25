@@ -1,75 +1,111 @@
 <?php
 namespace cmsgears\widgets\gallery;
 
+// Yii Imports
 use \Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
-
-use cmsgears\core\common\services\GalleryService;
-
-// TODO: Add a bootstrap view apart from cmgtools
 
 class Gallery extends \cmsgears\core\common\base\Widget {
 
 	// Variables ---------------------------------------------------
 
-	// Public Variables --------------------
+	// Globals -------------------------------
 
+	// Constants --------------
+
+	// Public -----------------
+
+	// Protected --------------
+
+	// Variables -----------------------------
+
+	// Public -----------------
 	/**
 	 * The gallery name.
 	 */
-    public $galleryName;
+    public $name;
+
+	/**
+	 * The gallery slug.
+	 */
+    public $slug;
+
+	/**
+	 * The gallery. Name or slug not required in case gallery is provided.
+	 */
+	public $gallery;
+
+	// Protected --------------
+
+	// Private ----------------
+
+	// Traits ------------------------------------------------------
 
 	// Constructor and Initialisation ------------------------------
 
-	// yii\base\Object
+	// Instance methods --------------------------------------------
 
-    public function init() {
+	// Yii interfaces ------------------------
 
-        parent::init();
+	// Yii parent classes --------------------
 
-		// Do init tasks
-    }
-
-	// Instance Methods --------------------------------------------
-
-	// yii\base\Widget
+	// yii\base\Widget --------
 
 	/**
 	 * @inheritdoc
 	 */
     public function run() {
 
-        if( !isset( $this->galleryName ) ) {
+		$galleryService = Yii::$app->factory->get( 'galleryService' );
 
-            throw new InvalidConfigException( 'Gallery name is required.' );
-        }
+		if( empty( $this->gallery ) && isset( $this->name ) ) {
 
-		$gallery		= GalleryService::findByName( $this->galleryName );
-		$items 			= [];
-		$galleryHtml	= '';
+			$this->gallery	= $galleryService->getByName( $this->name, true );
+		}
 
-        if( isset( $gallery ) && $gallery->active ) {
+		if( empty( $this->gallery ) && isset( $this->slug ) ) {
 
-			// Paths
-			$wrapperPath	= $this->template . "/wrapper";
-			$itemPath		= $this->template . "/item";
-	
-			// Generate Items Html
-	
-			$gitems = $gallery->files;
-	
-	        foreach( $gitems as $item ) {
-	
-	            $items[] = $this->render( $itemPath, [ 'item' => $item ] );
-	        }
-	
-			$itemsHtml		= implode( "\n", $items );
-			$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
-	
+			$this->gallery	= $galleryService->getBySlug( $this->slug, true );
+		}
+
+        if( isset( $this->gallery ) && $this->gallery->active ) {
+
+			$galleryHtml	= $this->renderWidget();
+
 	        return Html::tag( 'div', $galleryHtml, $this->options );
 		}
     }
-}
 
-?>
+	// CMG interfaces ------------------------
+
+	// CMG parent classes --------------------
+
+	public function renderWidget( $config = [] ) {
+
+		$gallery		= $this->gallery;
+		$items 			= [];
+		$galleryHtml	= '';
+
+		// Paths
+		$wrapperPath	= $this->template . '/wrapper';
+		$itemPath		= $this->template . '/item';
+
+		// Generate Items Html
+
+		$gitems = $gallery->files;
+
+	    foreach( $gitems as $item ) {
+
+	        $items[] = $this->render( $itemPath, [ 'item' => $item ] );
+	    }
+
+		$itemsHtml		= implode( "\n", $items );
+
+		$galleryHtml	= $this->render( $wrapperPath, [ 'gallery' => $gallery, 'itemsHtml' => $itemsHtml ] );
+
+		return $galleryHtml;
+	}
+
+	// Gallery -------------------------------
+}
