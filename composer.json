@@ -1,12 +1,12 @@
 {
 	"name": "cmsgears/widget-gallery",
 	"description": "The Gallery widget for CMSGears.",
-	"homepage": "http://www.cmsgears.org",
+	"homepage": "https://www.cmsgears.org",
 	"type": "package",
 	"keywords": [ "yii2", "cmsgears", "widget", "gallery" ],
-	"license": "GPLv3",
+	"license": "GPL-3.0-or-later",
 	"support": {
-		"resources": "http://resources.cmsgears.org/"
+		"resources": "https://resources.cmsgears.org/"
 	},
 	"autoload": {
 		"psr-4": {
